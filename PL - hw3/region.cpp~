@@ -1,0 +1,347 @@
+#include "region.h"
+#include <iostream>
+#include "pokemon.h"
+#include <string> 
+
+using namespace std;
+
+char Region::wrt = 'x'; // INITIALIZATION OF STATIC VARIABLE WRT
+
+Region::Region(const int min[3], const int max[3]){
+
+	min_x = min[0];
+	min_y = min[1];
+	min_z = min[2];
+	max_x = max[0];
+	max_y = max[1];
+	max_z = max[2];
+	parent = right = left = NULL; 
+	pokemon = NULL;
+}
+Region::Region(const Region& rhs){
+
+	min_x = rhs.min_x;
+	min_y = rhs.min_y;
+	min_z = rhs.min_z;
+	max_x = rhs.max_x;
+	max_y = rhs.max_y;
+	max_z = rhs.max_z;
+	if(rhs.right){
+		right = new Region(*(rhs.right));
+		right -> parent = this;
+	}
+	if(!(rhs.right)){
+		right = NULL;
+	}
+	if(rhs.left){
+		left = new Region(*(rhs.left));
+		left -> parent = this;
+	}
+	if(!(rhs.left)){
+		left = NULL;
+	}
+	if(!(rhs.parent)){
+		parent = NULL;
+	}
+	if(rhs.pokemon){
+		pokemon = new Pokemon(*(rhs.pokemon));
+	}
+	if(!(rhs.pokemon)){
+		pokemon = NULL;
+	}
+
+
+}
+void Region::deleteRegion(){  //DELETE
+	if(parent){
+		parent = NULL;
+	}
+	if(pokemon){
+		delete pokemon;
+		pokemon = NULL;
+	}
+	if(right){
+		right -> deleteRegion();
+		delete right;
+		right = NULL;
+	}
+	if(left){
+		left -> deleteRegion();
+		delete left;
+		left = NULL;
+	}
+}
+
+Region& Region::operator=(const Region& rhs){
+	this -> deleteRegion();
+	min_x = rhs.min_x;
+	min_y = rhs.min_y;
+	min_z = rhs.min_z;
+	max_x = rhs.max_x;
+	max_y = rhs.max_y;
+	max_z = rhs.max_z;
+	if(rhs.right){
+		right = new Region(*(rhs.right));
+		left -> parent = this;
+	}
+	if(!(rhs.right)){
+		right = NULL;
+	}
+	if(rhs.left){
+		left = new Region(*(rhs.left));
+		right -> parent = this;
+	}
+	if(!(rhs.left)){
+		left = NULL;
+	}
+	if(!(rhs.parent)){
+		parent = NULL;
+	}
+	if(rhs.pokemon){
+		pokemon = new Pokemon(*(rhs.pokemon));
+	}
+	if(!(rhs.pokemon)){
+		pokemon = NULL;
+	}
+	return *this;
+
+
+}
+Region::~Region(){
+	this -> deleteRegion();
+}
+
+bool Region::isLeaf() const {
+	return ((min_x == max_x) && (min_y == max_y) && (min_z == max_z));
+}
+
+int Region::getMinBorder(char cord) const{
+	if(cord == 'x')
+		return min_x;
+	else if(cord == 'y')
+		return min_y;
+	else if(cord == 'z')
+		return min_z;
+	else 
+		return -1; // RETURNS -1 IF THE PARAMETER IS DIFFERENT THAN X,Y,Z !!!
+}
+
+int Region::getMaxBorder(char cord) const{
+	if(cord == 'x')
+		return max_x;
+	else if(cord == 'y')
+		return max_y;
+	else if(cord == 'z')
+		return max_z;
+	else 
+		return -1; // RETURNS -1 IF THE PARAMETER IS DIFFERENT THAN X,Y,Z !!!
+}
+
+void Region::placePokemon(const Pokemon& poke, int x , int y, int z){
+	int tmpmax[3];
+	int tmpmin[3];
+	if(isLeaf() && !pokemon){
+		this -> pokemon = new Pokemon(poke);
+		return;
+	}
+	if(wrt == 'x' && min_x == max_x && min_y != max_y){
+		wrt = 'y';
+	}
+	if(wrt == 'x' && min_y == max_y && min_z != max_z){
+		wrt = 'z';
+	}
+	if(wrt == 'y' && min_y == max_y && min_z != max_z){
+		wrt = 'z';
+	}
+	if(wrt == 'y' && min_y == max_y && min_z == max_z && max_x != min_x){
+		wrt = 'x';
+	}
+	if(wrt == 'z' && min_z == max_z && min_x != max_x){
+		wrt = 'x'; 
+	}
+	if(wrt == 'z' && min_z == max_z && min_x == max_x && min_y != max_y){
+		wrt = 'y';
+	}
+	if(wrt == 'x' && min_x != max_x){
+		
+		if(min_x <= x && min_y <= y &&  min_z <= z && (((max_x + 1) / 2 )-1) >= x && max_y >= y , max_z >= z ){ // GOES LEFT
+			if(!left){
+				tmpmin[0] = min_x;
+				tmpmin[1] = min_y;
+				tmpmin[2] = min_z;  
+				tmpmax[0] = ((max_x + 1)/2)-1;
+				tmpmax[1] = max_y;
+				tmpmax[2] = max_z;
+				left = new Region(tmpmin,tmpmax);
+				left -> parent = this;
+			}
+			wrt = 'y';
+			left -> placePokemon(poke,x,y,z);
+		}
+		else if((min_x + (max_x+1)/2) <= x && min_y <= y && min_z <= z && max_x >= x && max_y >= y , max_z >= z ){ // GOES RIGHT
+			if(!right){
+				tmpmin[0] = min_x + (max_x+1)/2;
+				tmpmin[1] = min_y;
+				tmpmin[2] = min_z;  
+				tmpmax[0] = max_x;
+				tmpmax[1] = max_y;
+				tmpmax[2] = max_z;
+				right = new Region(tmpmin,tmpmax);
+				right -> parent = this;
+			}
+			wrt = 'y';
+			right -> placePokemon(poke,x,y,z);
+		}		
+	}
+	else if (wrt == 'y' && min_y != max_y){
+		
+		if(min_x <= x && min_y <= y &&  min_z <= z && max_x >= x && (((max_y+1)/2)-1) >= y , max_z >= z ) { // GOES LEFT
+			if(!left){
+				tmpmin[0] = min_x;
+				tmpmin[1] = min_y;
+				tmpmin[2] = min_z;  
+				tmpmax[0] = max_x;
+				tmpmax[1] = ((max_y+1)/2)-1;
+				tmpmax[2] = max_z;
+				left = new Region(tmpmin, tmpmax);
+				left -> parent = this;
+			}
+			wrt = 'z';
+			left -> placePokemon(poke,x,y,z);
+		}
+		else if(min_x <= x && (min_y + (max_y+1)/2) <= y && min_z <= z && max_x >= x && max_y >= y && max_z <= z){
+			if(!right){
+				tmpmin[0] = min_x;
+				tmpmin[1] = min_y + (max_y+1)/2;
+				tmpmin[2] = min_z;  
+				tmpmax[0] = max_x;
+				tmpmax[1] = max_y;
+				tmpmax[2] = max_z;
+				right = new Region(tmpmin, tmpmax);
+				right -> parent = this;
+			}
+			wrt = 'z';
+			right -> placePokemon(poke,x,y,z);
+		}
+	}
+	else if (wrt == 'z' && min_z != max_z){
+		
+		if(min_x <= x && min_y <= y &&  min_z <= z && max_x >= x && max_y >= y ,(((max_z+1)/2) - 1) >= z ){ // GOES LEFT
+			if(!left){
+				tmpmin[0] = min_x;
+				tmpmin[1] = min_y;
+				tmpmin[2] = min_z;  
+				tmpmax[0] = max_x;
+				tmpmax[1] = max_y;
+				tmpmax[2] = ((max_z+1)/2)-1;
+				left = new Region(tmpmin,tmpmax);
+				left -> parent = this;
+			}
+			wrt = 'x';
+			left -> placePokemon(poke,x,y,z);
+		}
+		else if(min_x <= x && min_y <= y && ((max_z+1)/2) <= z && max_x >= x && max_y >= y && max_z >= z){
+			if(!right){
+				tmpmin[0] = min_x;
+				tmpmin[1] = min_y ;
+				tmpmin[2] = min_z + (max_z+1)/2;  
+				tmpmax[0] = max_x;
+				tmpmax[1] = max_y;
+				tmpmax[2] = max_z;
+				right = new Region(tmpmin, tmpmax);
+				right -> parent = this;	
+			}
+			wrt = 'x';
+			right -> placePokemon(poke,x,y,z);
+		}
+	}
+}
+
+
+Pokemon& Region::operator()(int x, int y, int z){  // DAHA BİTMEDIIIIIIII !!!!
+	if(!isLeaf() && right == NULL && left == NULL)
+		throw pokemonException();
+	if(isLeaf() && min_x == x && min_y == y && min_z == z){
+		if(!pokemon){
+			throw pokemonException();
+		}
+		else{
+			Pokemon* tmp = new Pokemon(*pokemon);
+			delete pokemon;
+			pokemon = NULL;
+			return *tmp;
+		}
+	}
+	if(right && right -> getMaxBorder('x') >= x && right -> getMaxBorder('y') >= y && right -> getMaxBorder('z') >= z && right -> getMinBorder('x') <= x && right -> getMinBorder('y') <= y && right -> getMinBorder('z') <= z &&  right ){
+		return right -> operator()(x,y,z);
+		int tmpmin1[3] = {right -> min_x,right -> min_y , right -> min_z};
+		int tmpmax1[3] = {right -> max_x,right -> max_y , right -> max_z};
+		if(right -> getPokemonCount(tmpmin1,tmpmax1) == 0){
+			delete right ;
+			right = NULL;
+		}
+	}
+	else if(left && left -> getMaxBorder('x') >= x && left  -> getMaxBorder('y') >= y && left  -> getMaxBorder('z') >= z && left  -> getMinBorder('x') <= x && left  -> getMinBorder('y') <= y && left  -> getMinBorder('z') <= z &&  left ){
+		return  left -> operator()(x,y,z);
+		int tmpmin2[3] = {left-> min_x,left -> min_y,left -> min_z};
+		int tmpmax2[3] = {left-> max_x,left -> max_y,left -> max_z};
+		if(left -> getPokemonCount(tmpmin2,tmpmax2) == 0){
+			delete left;
+			left == NULL;
+		}
+	}
+
+}
+
+int Region::getPokemonCount(const int min[3], const int max[3]) const{
+	int i = 0;
+	if(isLeaf() && pokemon && min_x >= min[0] && max_x <= max[0] && min_y >= min[1] && max_y <= min[1] && min_z >= min[2] && max_z >= max[2] && min_x >=min[0] ){
+		i = 1;
+	}
+	else if(isLeaf() && !pokemon ){
+		i = 0;
+	}
+	if(right && right -> getMaxBorder('x') >= max[0] && right -> getMaxBorder('y') >= max[1] && right -> getMaxBorder('z') >= max[2] && right -> getMinBorder('x') <= min[0] && right -> getMinBorder('y') <= min[1] && right -> getMinBorder('z') <= min[2] &&  right){
+		int tmpmin1[3] = {right -> min_x,right -> min_y , right -> min_z};
+		int tmpmax1[3] = {right -> max_x,right -> max_y , right -> max_z};
+		i = i + right -> getPokemonCount(tmpmin1,tmpmax1);
+	}
+	if(left && left -> getMaxBorder('x') >= max[0] && left  -> getMaxBorder('y') >= max[1] && left  -> getMaxBorder('z') >= max[2] && left  -> getMinBorder('x') <= min[0] && left  -> getMinBorder('y') <= min[1] && left  -> getMinBorder('z') <= min[2] &&  left){
+		int tmpmin2[3] = {left-> min_x,left -> min_y,left -> min_z};
+		int tmpmax2[3] = {left-> max_x,left -> max_y,left -> max_z};
+		i = i + left -> getPokemonCount(tmpmin2,tmpmax2);
+	}
+	return i;
+}
+
+
+Region Region::crop(const int min[3] ,const int max[3] ) const{
+	if(min_x == min[0] && max_x == max[0] && min_y == min[1] && max_y == min[1] && min_z == min[2] && max_z == max[2] ){
+		Region tmpreg = *this;
+		return tmpreg;
+	}
+	else if(right && right -> getMaxBorder('x') >= max[0] && right -> getMaxBorder('y') >= max[1] && right -> getMaxBorder('z') >= max[2] && right -> getMinBorder('x') <= min[0] && right -> getMinBorder('y') <= min[1] && right -> getMinBorder('z') <= min[2] &&  right){
+		return right -> crop(min,max);
+	}
+	else if(left && left -> getMaxBorder('x') >= max[0] && left  -> getMaxBorder('y') >= max[1] && left  -> getMaxBorder('z') >= max[2] && left  -> getMinBorder('x') <= min[0] && left  -> getMinBorder('y') <= min[1] && left  -> getMinBorder('z') <= min[2] &&  left){
+		return left -> crop(min,max);
+	}
+}
+
+void Region::patch(Region rhs){
+	if(right && (right -> min_x) == rhs.min_x && (right -> max_x) == rhs.max_x && (right -> min_y)== rhs.min_y && (right -> max_y) == rhs.max_y && (right -> min_z) == rhs.min_z && (right -> max_z) == rhs.max_z && right){
+		delete right;
+		right = new Region(rhs);			
+	}
+	else if (left && (left -> min_x) == rhs.min_x && (left  -> max_x) == rhs.max_x && (left  -> min_y)== rhs.min_y && (left  -> max_y) == rhs.max_y && (left  -> min_z) == rhs.min_z && (left  -> max_z) == rhs.max_z && left){
+		delete left;
+		left = new Region(rhs);
+	}
+	else if(right && right -> getMaxBorder('x') >= rhs.max_x && right -> getMaxBorder('y') >= rhs.max_y && right -> getMaxBorder('z') >= rhs.max_z && right -> getMinBorder('x') <= rhs.min_x && right -> getMinBorder('y') <= rhs.min_y && right -> getMinBorder('z') <= rhs.min_z &&  right){
+		right -> patch(rhs);
+	}
+	else if(left && left -> getMaxBorder('x') >= rhs.max_x && left  -> getMaxBorder('y') >= rhs.max_y && left  -> getMaxBorder('z') >= rhs.max_z && left  -> getMinBorder('x') <= rhs.min_x && left  -> getMinBorder('y') <= rhs.min_y && left  -> getMinBorder('z') <= rhs.min_z &&  left){
+		left -> patch(rhs);
+	}
+}
+
