@@ -1,0 +1,70 @@
+1;Tim Robbins
+2;Morgan Freeman
+3;Bob Gunton
+4;William Sadler
+5;Marlon Brando
+6;Al Pacino
+7;James Caan
+8;Richard S. Castellano
+9;Robert Duvall
+10;Diane Keaton
+11;Robert De Niro
+12;Christian Bale
+13;Heath Ledger
+14;Aaron Eckhart
+15;Michael Caine
+16;Martin Balsam
+17;John Fiedler
+18;Lee J. Cobb
+19;E.G. Marshall
+20;Liam Neeson
+21;Ben Kingsley
+22;Ralph Fiennes
+23;Caroline Goodall
+24;Tim Roth
+25;Amanda Plummer
+26;Laura Lovelace
+27;John Travolta
+28;Noel Appleby
+29;Ali Astin
+30;Sean Astin
+31;David Aston
+32;Edward Norton
+33;Brad Pitt
+34;Meat Loaf
+35;Zach Grenier
+36;Alan Howard
+37;Sala Baker
+38;Tom Hanks
+39;Rebecca Williams
+40;Sally Field
+41;Michael Conner Humphreys
+42;Mark Hamill
+43;Harrison Ford
+44;Carrie Fisher
+45;Billy Dee Williams
+46;Leonardo DiCaprio
+47;Joseph Gordon-Levitt
+48;Ellen Page
+49;Tom Hardy
+50;Bruce Allpress
+51;John Bach
+52;Michael Berryman
+53;Peter Brocco
+54;Dean R. Brooks
+55;Alonzo Brown
+56;Ray Liotta
+57;Joe Pesci
+58;Lorraine Bracco
+59;Keanu Reeves
+60;Laurence Fishburne
+61;Carrie-Anne Moss
+62;Hugo Weaving
+63;Peter Cushing
+64;Alexandre Rodrigues
+65;Leandro Firmino
+66;Phellipe Haagensen
+67;Douglas Silva
+68;Andrew Kevin Walker
+69;Kevin Spacey
+70;Daniel Zacapa
