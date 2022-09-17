@@ -1,0 +1,91 @@
+############################################################################################
+########################### Detailed Explanations About HW3 ################################
+############################################################################################
+##                                                                                        ##
+## 1. void placePokemon(const Pokemon&, int, int, int);                                   ##
+##                                                                                        ##
+##    This method create a new pokemon in the given coordinates and places the            ##
+##    given pokemon in the parameter into that coordinate (namely you need to             ##
+##    do:  Pokemon* p = new Pokemon(the pokemon given in the parameter).                  ##
+##                                                                                        ##
+## 2. Pokemon& Region::operator()(int, int, int);                                         ##
+##                                                                                        ##
+##    This method does not delete the pokemon residing in the unit cell C                 ##
+##    whose coordinates are given in the parameter. It just deletes the unit              ##
+##    cell C and ancestor regions of C (if they do not have any other pokemon             ##
+##    in one of their unit cells). If C does not include any pokemon, then it             ##
+##    throws an exception. The exceptions will be checked by try-catch blocks             ##
+##    in main.cpp. For the exceptional cases, there won't be any operation                ##
+##    related to them.                                                                    ##
+##    This method will be either called alone in main.cpp (by me), or will be             ##
+##    used in scanRegion() method (by you).                                               ##
+##                                                                                        ##
+## 3. void Trainer::scanRegion(Region&);                                                  ##
+##                                                                                        ##
+##    In this method, crop-patch operations are not necessary (they may even              ##
+##    make it hard). You can just use getPokemonCount() method and operator()             ##
+##    to catch a pokemon in a unit cell without obtaining the cell itself via             ##
+##    tiring crop-patch operations (Thanks to your friends for their suggestion).         ##
+##    Hence, an algorithm condition is removed ONLY for this method. Actually,            ##
+##    without using crop-patch, it must be (at least seems like) a more efficient         ##
+##    solution.                                                                           ##
+##                                                                                        ##
+## 4. Trainer's copy constructor and Region's copy constructor                            ##
+##                                                                                        ##
+##    We also talked this controversial issue with the instructor and your friends.       ##
+##    Together with your friends, we have decided that it will be the best way to         ##
+##    implement a deep copy constructor. Therefore, you need to delete the pokemons       ##
+##    of trainers' and the pokemons living in the regions inside their destructors.       ##
+##    If there occurs a pokemon living neither in the pokeball of a trainer nor           ##
+##    in a unit cell, do not worry, I am going to delete inside main.cpp (there may       ##
+##    occur such cases when I call operator() inside main.cpp, and not make a trainer     ##
+##    catch it).                                                                          ##
+##    If there are some of you who have implemented shallow copies for the destructors    ##
+##    of Trainer and Region class and do not want to change it not to lose time, then     ##
+##    you can still continue with it. Unfortunately, null pointer check does not work.    ##
+##    Instead, you need to hold reference number for each pokemon. This is given by       ##
+##    t_ref_cnt in pokemon.h . You need to increase this number for each time of that     ##
+##    pokemon is referred by either a region or a trainer. Moreover, you need to          ##
+##    decrease this number for each time of a referring item (trainer or region) is       ##
+##    deleted. If this number reaches to 0, in any of the deletes, then the pokemon's     ##
+##    itself must be deleted.                                                             ##
+##                                                                                        ##
+##    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    ##
+##    IMPORTANT: Whether you do shallow copy or not, you MUST initialize t_ref_cnt to 0   ##
+##    in the constructor of Pokemon class and copy it in copy constructor and operator=   ##
+##    of Pokemon class.                                                                   ##
+##    Implementing either shallow copy or deep copy will NOT change the evaluation. We    ##
+##    will only check the property values of copied items. We will NOT do any operation   ##
+##    on the properties of copied items. Hence, the results obtained by both of those     ##
+##    implementations will be the same.                                                   ##
+##    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    ##
+##                                                                                        ##
+## 5. Region Region::crop(const int[3], const int[3]) const;                              ##
+##                                                                                        ##
+##    In this method also, there is not any obligation about the deep copy / shallow copy ##
+##    issue of the pokemons. In other words, you can implement in any way you want.       ##
+##    There won't be any test case that will differ the results between the two           ##
+##    implementations. On the other hand, if you are using crop/patch methods inside      ##
+##    scanRegion() method, then you have to implement crop/patch in shallow copy style    ##
+##    in order that it ensures the specifications of the other methods (like scanRegion() ##
+##    or ()operator). If you are not using crop/patch methods in scanRegion() already,    ##
+##    then there is nothing you have to worry, just go on your normal schedule of         ##
+##    implementation.                                                                     ##
+##		                                                                                  ##
+## 6. void Region::patch(Region);                                                         ##
+##                                                                                        ##
+##    The same concerns mentioned for crop() method above are also valid for this method. ##
+##    Additionally, please note that if there is some null part in the region given in    ##
+##    the parameter and if that null part corresponds to some full part in the main       ##
+##    region, then you have to delete those corresponding full parts together by deleting ##
+##    the pokemons living in those regions.                                               ##
+##                                                                                        ##
+## 7. friend ostream& showPokemons(ostream&, const Trainer&);                             ##
+##                                                                                        ##
+##    This method must fill ostream with the pokemon names one under the other:           ##
+##    For example:  Pikachu                                                               ##
+##		    Raichu                                                                ##
+##                  Raticate                                                              ##
+##                                                                                        ##
+############################################################################################
+############################################################################################

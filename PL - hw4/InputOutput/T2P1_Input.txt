@@ -1,9 +1,0 @@
-Trainer Count:2
-Pokemon Count:1
-
-0--Max--Ocean
-0::Pidgey::FLYING
-
-1--Jesse--Forest
-1::Starmie::WATER
-

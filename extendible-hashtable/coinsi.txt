@@ -1,0 +1,100 @@
+list|0|Golem|810|$
+list|1|Hshare|96|$
+list|2|NEM|571|₺
+list|3|MonaCoin|514|₺
+list|4|Einsteinium|886|₺
+list|5|Byteball Bytes|910|$
+list|6|ReddCoin|362|€
+list|7|Zcash|607|€
+list|8|Siacoin|397|€
+list|9|VeChain|667|₺
+list|10|Monaco|197|₺
+list|11|Zcash|750|€
+list|12|Power Ledger|262|₺
+list|13|Bytecoin|584|₺
+list|14|Augur|700|$
+list|15|Blocknet|824|₺
+list|16|RChain|905|€
+list|17|Hshare|744|€
+list|18|Blocknet|627|₺
+list|19|Civic|306|$
+list|20|Civic|642|€
+list|21|Cryptonex|179|₺
+list|22|Storj|153|₺
+list|23|Komodo|810|€
+list|24|TRON|76|€
+list|25|Ethereum|109|$
+list|26|Ethos|180|$
+list|27|PIVX|403|€
+list|28|Dragonchain|545|€
+list|29|DigiByte|822|₺
+list|30|Cardano|924|€
+list|31|Status|130|$
+list|32|RChain|200|₺
+list|33|Streamr DATAcoin|330|$
+list|34|Qtum|166|₺
+list|35|Bitcoin|630|$
+list|36|Santiment Network Token|600|$
+list|37|Lisk|146|€
+list|38|Ethos|916|€
+list|39|Qtum|811|€
+list|40|Aeternity|381|€
+list|41|Basic Attention Token|582|$
+list|42|Electroneum|758|₺
+list|43|Power Ledger|175|€
+list|44|Binance Coin|837|€
+list|45|PayPie|763|₺
+list|46|Monero|643|$
+list|47|GameCredits|314|₺
+list|48|Monero|834|€
+list|49|Ethereum|580|€
+list|50|TRON|638|€
+list|51|Populous|530|€
+list|52|Ethereum Classic|353|₺
+list|53|Komodo|800|₺
+list|54|Lisk|789|$
+list|55|NAV Coin|107|$
+list|56|Ethereum Classic|854|₺
+list|57|NEM|154|₺
+list|58|Factom|5|€
+list|59|Ark|164|$
+list|60|Gnosis|644|€
+list|61|Ripple|913|€
+list|62|Nxt|522|₺
+list|63|OmiseGO|32|€
+list|64|Bitcoin|3|$
+list|65|Populous|24|€
+list|66|MaidSafeCoin|568|₺
+list|67|Nxt|592|€
+list|68|Verge|478|€
+list|69|Request Network|489|€
+list|70|Request Network|280|₺
+list|71|Monero|181|₺
+list|72|Komodo|886|€
+list|73|TenX|876|$
+list|74|Ethos|626|₺
+list|75|Bitcoin Cash|483|$
+list|76|VeChain|922|$
+list|77|GameCredits|947|€
+list|78|Bitcoin Cash|73|$
+list|79|Walton|89|€
+list|80|EOS|662|$
+list|81|Ethos|903|€
+list|82|Augur|819|€
+list|83|Komodo|835|₺
+list|84|Decentraland|514|€
+list|85|Komodo|952|$
+list|86|Substratum|857|$
+list|87|Asch|794|$
+list|88|Einsteinium|381|€
+list|89|Decentraland|262|$
+list|90|Dash|571|€
+list|91|Einsteinium|538|₺
+list|92|Siacoin|574|₺
+list|93|Einsteinium|197|₺
+list|94|Cardano|722|₺
+list|95|Verge|130|$
+list|96|IOTA|207|₺
+list|97|Binance Coin|297|₺
+list|98|Aion|44|₺
+list|99|Bitcoin Cash|500|$

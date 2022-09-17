@@ -1,0 +1,216 @@
+# engin : 22.12.2017
+# HashMod : 8
+# BucketSize : 2
+
+print
+BEGIN TABLE
+<row>
+	<hashPrefix>0</hashPrefix>
+	<bucket>
+		<hashLength>0</hashLength>
+	</bucket>
+</row>
+END TABLE
+add|1|Hshare|96|$
+print
+BEGIN TABLE
+<row>
+	<hashPrefix>0</hashPrefix>
+	<bucket>
+		<hashLength>0</hashLength>
+		<coin>
+			<hash>001</hash>
+			<value>1|Hshare|96|$</value>
+		</coin>
+	</bucket>
+</row>
+END TABLE
+add|4|Einsteinium|886|₺
+add|5|Byteball Bytes|910|$
+add|7|Zcash|607|€
+print
+BEGIN TABLE
+<row>
+	<hashPrefix>00</hashPrefix>
+	<bucket>
+		<hashLength>1</hashLength>
+		<coin>
+			<hash>001</hash>
+			<value>1|Hshare|96|$</value>
+		</coin>
+	</bucket>
+</row>
+<row>
+	<hashPrefix>01</hashPrefix>
+	<bucket>
+		<hashLength>1</hashLength>
+		<coin>
+			<hash>001</hash>
+			<value>1|Hshare|96|$</value>
+		</coin>
+	</bucket>
+</row>
+<row>
+	<hashPrefix>10</hashPrefix>
+	<bucket>
+		<hashLength>2</hashLength>
+		<coin>
+			<hash>100</hash>
+			<value>4|Einsteinium|886|₺</value>
+		</coin>
+		<coin>
+			<hash>101</hash>
+			<value>5|Byteball Bytes|910|$</value>
+		</coin>
+	</bucket>
+</row>
+<row>
+	<hashPrefix>11</hashPrefix>
+	<bucket>
+		<hashLength>2</hashLength>
+		<coin>
+			<hash>111</hash>
+			<value>7|Zcash|607|€</value>
+		</coin>
+	</bucket>
+</row>
+END TABLE
+add|8|Siacoin|397|€
+add|2|NEM|571|₺
+add|20|Cryptonex|179|₺
+print
+BEGIN TABLE
+<row>
+	<hashPrefix>000</hashPrefix>
+	<bucket>
+		<hashLength>2</hashLength>
+		<coin>
+			<hash>001</hash>
+			<value>1|Hshare|96|$</value>
+		</coin>
+		<coin>
+			<hash>000</hash>
+			<value>8|Siacoin|397|€</value>
+		</coin>
+	</bucket>
+</row>
+<row>
+	<hashPrefix>001</hashPrefix>
+	<bucket>
+		<hashLength>2</hashLength>
+		<coin>
+			<hash>001</hash>
+			<value>1|Hshare|96|$</value>
+		</coin>
+		<coin>
+			<hash>000</hash>
+			<value>8|Siacoin|397|€</value>
+		</coin>
+	</bucket>
+</row>
+<row>
+	<hashPrefix>010</hashPrefix>
+	<bucket>
+		<hashLength>2</hashLength>
+		<coin>
+			<hash>010</hash>
+			<value>2|NEM|571|₺</value>
+		</coin>
+	</bucket>
+</row>
+<row>
+	<hashPrefix>011</hashPrefix>
+	<bucket>
+		<hashLength>2</hashLength>
+		<coin>
+			<hash>010</hash>
+			<value>2|NEM|571|₺</value>
+		</coin>
+	</bucket>
+</row>
+<row>
+	<hashPrefix>100</hashPrefix>
+	<bucket>
+		<hashLength>3</hashLength>
+		<coin>
+			<hash>100</hash>
+			<value>4|Einsteinium|886|₺</value>
+		</coin>
+		<coin>
+			<hash>100</hash>
+			<value>20|Cryptonex|179|₺</value>
+		</coin>
+	</bucket>
+</row>
+<row>
+	<hashPrefix>101</hashPrefix>
+	<bucket>
+		<hashLength>3</hashLength>
+		<coin>
+			<hash>101</hash>
+			<value>5|Byteball Bytes|910|$</value>
+		</coin>
+	</bucket>
+</row>
+<row>
+	<hashPrefix>110</hashPrefix>
+	<bucket>
+		<hashLength>2</hashLength>
+		<coin>
+			<hash>111</hash>
+			<value>7|Zcash|607|€</value>
+		</coin>
+	</bucket>
+</row>
+<row>
+	<hashPrefix>111</hashPrefix>
+	<bucket>
+		<hashLength>2</hashLength>
+		<coin>
+			<hash>111</hash>
+			<value>7|Zcash|607|€</value>
+		</coin>
+	</bucket>
+</row>
+END TABLE
+search|2
+BEGIN SEARCH
+<row>
+	<hashPrefix>010</hashPrefix>
+	<bucket>
+		<hashLength>2</hashLength>
+		<coin>
+			<hash>010</hash>
+			<value>2|NEM|571|₺</value>
+		</coin>
+	</bucket>
+</row>
+<row>
+	<hashPrefix>011</hashPrefix>
+	<bucket>
+		<hashLength>2</hashLength>
+		<coin>
+			<hash>010</hash>
+			<value>2|NEM|571|₺</value>
+		</coin>
+	</bucket>
+</row>
+END SEARCH
+search|5
+BEGIN SEARCH
+<row>
+	<hashPrefix>101</hashPrefix>
+	<bucket>
+		<hashLength>3</hashLength>
+		<coin>
+			<hash>101</hash>
+			<value>5|Byteball Bytes|910|$</value>
+		</coin>
+	</bucket>
+</row>
+END SEARCH
+search|21
+BEGIN SEARCH
+None
+END SEARCH
+
