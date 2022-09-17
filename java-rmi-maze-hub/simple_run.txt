@@ -1,0 +1,39 @@
+cm 20 20
+sm 1
+Operation Failed.
+sm 0
+Operation Success.
+co 5 5 gold
+Operation Success.
+co 5 6 wall
+Operation Success.
+co 5 7 agent
+Operation Success.
+p
++--------------------+
+|                    |
+|                    |
+|                    |
+|                    |
+|                    |
+|     G              |
+|     X              |
+|     A              |
+|                    |
+|                    |
+|                    |
+|                    |
+|                    |
+|                    |
+|                    |
+|                    |
+|                    |
+|                    |
+|                    |
+|                    |
++--------------------+
+dm 0
+Operation Success.
+co 5 6 hole
+Operation Failed.
+q
